@@ -1,12 +1,13 @@
 use alloc::borrow::ToOwned;
 use alloc::boxed::Box;
 use alloc::collections::BTreeMap;
-use alloc::string::{String, ToString};
+use alloc::fmt;
+use alloc::string::String;
+use alloc::string::ToString;
 use alloc::vec::Vec;
 use core::error::Error;
-use core::fmt;
 use core::marker::PhantomData;
-use serde::{de, forward_to_deserialize_any};
+use serde::{de, de::VariantAccess, forward_to_deserialize_any};
 
 use crate::Value;
 
@@ -313,6 +314,14 @@ impl<'de> de::Visitor<'de> for ValueVisitor {
 
     fn visit_byte_buf<E>(self, v: Vec<u8>) -> Result<Value, E> {
         Ok(Value::Bytes(v))
+    }
+
+    fn visit_enum<A: de::EnumAccess<'de>>(self, data: A) -> Result<Self::Value, A::Error> {
+        let mut map = BTreeMap::new();
+        let (key, value) = data.variant()?;
+        let value = value.newtype_variant().unwrap_or(Value::Unit);
+        map.insert(key, value);
+        Ok(Value::Map(map))
     }
 }
 
