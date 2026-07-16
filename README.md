@@ -15,9 +15,11 @@
 
 ## Alternatives
 
-- [serde-content](https://crates.io/crates/serde-content)-
+- [serde-content](https://crates.io/crates/serde-content)
   - sticks closer to the internal model used by serde
   - allows Content enum to borrow data for zero-copy deserialisation (internal `Cow`s)
+- [serde-val](https://crates.io/crates/serde-val)
+  - another fork of serde-value, merging the no_std PR
 
 ## PRs from original repo
 

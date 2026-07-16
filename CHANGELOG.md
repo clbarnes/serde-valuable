@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- Documentation
+
 ## 0.8.0 - 2026-07-16
 
 ### Removed
