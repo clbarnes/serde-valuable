@@ -1,5 +1,7 @@
 # serde-valuable
 
+> serde-valuable is a maintained fork of [arcnmx](https://github.com/arcnmx)'s [serde-value](https://crates.io/crates/serde-value)
+
 [![travis-badge][]][travis] [![release-badge][]][cargo] [![docs-badge][]][docs] [![license-badge][]][license]
 
 `serde-valuable` provides a way to capture serialization value trees for later processing.
