@@ -5,7 +5,7 @@ authors = [
     "arcnmx",
     "Chris L. Barnes <chrislloydbarnes@gmail.com>",
 ]
-edition = "2018"
+edition = "2024"
 
 description = "Value enum for serde data model (fork of serde-value)"
 repository = "https://github.com/clbarnes/serde-valuable"
