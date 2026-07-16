@@ -60,7 +60,8 @@ impl Hash for Value {
             Value::F64(v) => OrderedFloat(v).hash(hasher),
             Value::Char(v) => v.hash(hasher),
             Value::String(ref v) => v.hash(hasher),
-            Value::Unit => ().hash(hasher),
+            // Hashing unit type is a no-op
+            Value::Unit => (),
             Value::Option(ref v) => v.hash(hasher),
             Value::Newtype(ref v) => v.hash(hasher),
             Value::Seq(ref v) => v.hash(hasher),
