@@ -19,5 +19,5 @@
 - Bumped ordered-float to v5, superceding:
   - [x] Upgrade to ordered-float v3 <https://github.com/arcnmx/serde-value/pull/35>
   - [x] Upgrade ordered-float to version 4 <https://github.com/arcnmx/serde-value/pull/42>
-- [ ] Support visiting enums <https://github.com/arcnmx/serde-value/pull/38>
+- [x] Support visiting enums <https://github.com/arcnmx/serde-value/pull/38>
 - [ ] Added support for feature = preserve_order <https://github.com/arcnmx/serde-value/pull/21>
