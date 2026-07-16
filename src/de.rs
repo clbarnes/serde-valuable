@@ -10,25 +10,46 @@ use serde::{de, de::VariantAccess, forward_to_deserialize_any};
 
 use crate::Value;
 
+/// Duplicate serde's internal `Unexpected` type, which is used to represent unexpected values during deserialization.
+///
+/// Note that, like the `serde` type, unexpected integers are represented in 64 bits; unexpected integers which do not fit into this width will be represented as `Unexpected::Other`.
 #[derive(Debug)]
 pub enum Unexpected {
+    /// Unexpected boolean.
     Bool(bool),
+    /// Unexpected unsigned integer.
     Unsigned(u64),
+    /// Unexpected signed integer.
     Signed(i64),
+    /// Unexpected floating point number.
     Float(f64),
+    /// Unexpected `char`.
     Char(char),
+    /// Unexpected string.
     Str(String),
+    /// Unexpected byte vec.
     Bytes(Vec<u8>),
+    /// Unexpected unit type.
     Unit,
+    /// Unexpected optional type.
     Option,
+    /// Unexpected newtytpe struct.
     NewtypeStruct,
+    /// Unexpected sequence.
     Seq,
+    /// Unexpected map.
     Map,
+    /// Unexpected enum instance.
     Enum,
+    /// Unexpected unit variant of an enum.
     UnitVariant,
+    /// Unexpected newtype variant of an enum.
     NewtypeVariant,
+    /// Unexpected tuple variant of an enum.
     TupleVariant,
+    /// Unexected struct variant of an enum.
     StructVariant,
+    /// Some other unexpected value.
     Other(String),
 }
 
@@ -58,6 +79,7 @@ impl From<de::Unexpected<'_>> for Unexpected {
 }
 
 impl Unexpected {
+    /// Convert to serde's internal `Unexpected` type.
     pub fn to_unexpected(&self) -> de::Unexpected<'_> {
         match *self {
             Unexpected::Bool(v) => de::Unexpected::Bool(v),
@@ -82,15 +104,24 @@ impl Unexpected {
     }
 }
 
+/// Error types for deserializing a `Value` into a concrete type.
 #[derive(Debug)]
 pub enum DeserializerError {
+    /// Custom error message.
     Custom(String),
+    /// Found an unexpected type.
     InvalidType(Unexpected, String),
+    /// Found an unexpected value.
     InvalidValue(Unexpected, String),
+    /// Found an unexpected length.
     InvalidLength(usize, String),
+    /// Found an unknown variant.
     UnknownVariant(String, &'static [&'static str]),
+    /// Found an unknown field.
     UnknownField(String, &'static [&'static str]),
+    /// Did not find a required field.
     MissingField(&'static str),
+    /// Found a duplicate field.
     DuplicateField(&'static str),
 }
 
@@ -129,6 +160,7 @@ impl de::Error for DeserializerError {
 }
 
 impl DeserializerError {
+    /// Convert internal error into a serde type.
     pub fn to_error<E: de::Error>(&self) -> E {
         match *self {
             DeserializerError::Custom(ref msg) => E::custom(msg.clone()),
@@ -146,6 +178,7 @@ impl DeserializerError {
         }
     }
 
+    /// Convert an owned internal error into a serde type.
     pub fn into_error<E: de::Error>(self) -> E {
         self.to_error()
     }
@@ -208,6 +241,7 @@ impl From<de::value::Error> for DeserializerError {
     }
 }
 
+/// Visitor type for a [crate::Value].
 pub struct ValueVisitor;
 
 impl<'de> de::Visitor<'de> for ValueVisitor {
@@ -346,12 +380,14 @@ impl de::IntoDeserializer<'_, DeserializerError> for Value {
     }
 }
 
+/// Type implementing `serde::Deserializer` for a `Value`. This is used to deserialize a `Value` into a concrete type.
 pub struct ValueDeserializer<E> {
     value: Value,
     error: PhantomData<fn() -> E>,
 }
 
 impl<E> ValueDeserializer<E> {
+    /// Create a new `ValueDeserializer` from a `Value`.
     pub fn new(value: Value) -> Self {
         ValueDeserializer {
             value,
@@ -359,6 +395,7 @@ impl<E> ValueDeserializer<E> {
         }
     }
 
+    /// Unwrap the contained value.
     pub fn into_value(self) -> Value {
         self.value
     }

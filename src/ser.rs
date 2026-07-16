@@ -8,8 +8,10 @@ use serde::ser;
 
 use crate::Value;
 
+/// Error when serialising a value into a [crate::Value].
 #[derive(Debug)]
 pub enum SerializerError {
+    /// Custom error message.
     Custom(String),
 }
 
@@ -62,6 +64,7 @@ impl ser::Serialize for Value {
     }
 }
 
+/// Convert a serializable value into a [crate::Value].
 pub fn to_value<T: ser::Serialize>(value: T) -> Result<Value, SerializerError> {
     value.serialize(Serializer)
 }

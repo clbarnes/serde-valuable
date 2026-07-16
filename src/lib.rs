@@ -1,4 +1,5 @@
-#![doc(html_root_url = "https://docs.rs/serde-value/0.7.0/")]
+#![doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/README.md"))]
+#![warn(missing_docs)]
 #![no_std]
 extern crate alloc;
 
@@ -21,33 +22,57 @@ mod ser;
 /// Map type used internally.
 pub type Map<K = Value, V = Value> = BTreeMap<K, V>;
 
+/// A serde-compatible value tree that can capture the result of serializing any
+/// [`Serialize`](serde::Serialize) type and be deserialized into any
+/// [`Deserialize`](serde::Deserialize) type.
 #[derive(Clone, Debug)]
 pub enum Value {
+    /// A boolean.
     Bool(bool),
 
+    /// An 8-bit unsigned integer.
     U8(u8),
+    /// A 16-bit unsigned integer.
     U16(u16),
+    /// A 32-bit unsigned integer.
     U32(u32),
+    /// A 64-bit unsigned integer.
     U64(u64),
+    /// A 128-bit unsigned integer.
     U128(u128),
 
+    /// An 8-bit signed integer.
     I8(i8),
+    /// A 16-bit signed integer.
     I16(i16),
+    /// A 32-bit signed integer.
     I32(i32),
+    /// A 64-bit signed integer.
     I64(i64),
+    /// A 128-bit signed integer.
     I128(i128),
 
+    /// A 32-bit floating point number.
     F32(f32),
+    /// A 64-bit floating point number.
     F64(f64),
 
+    /// A single Unicode scalar value.
     Char(char),
+    /// A UTF-8 string.
     String(String),
 
+    /// The unit value (`()`).
     Unit,
+    /// An optional value: `None` or `Some`, wrapping a boxed inner [`Value`].
     Option(Option<Box<Value>>),
+    /// A newtype struct wrapping a single boxed inner [`Value`].
     Newtype(Box<Value>),
+    /// A sequence of values.
     Seq(Vec<Value>),
+    /// A map from keys to values.
     Map(Map<Value, Value>),
+    /// A byte array.
     Bytes(Vec<u8>),
 }
 
@@ -205,6 +230,7 @@ impl Value {
         }
     }
 
+    /// Deserialize the value into a concrete type.
     pub fn deserialize_into<'de, T: Deserialize<'de>>(self) -> Result<T, DeserializerError> {
         T::deserialize(self)
     }

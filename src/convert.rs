@@ -142,6 +142,7 @@ macro_rules! impl_as_ref {
 }
 
 impl Value {
+    /// Create a new [`Value::Newtype`] variant wrapping the given value.
     pub fn newtype(value: Value) -> Self {
         Value::Newtype(Box::new(value))
     }
