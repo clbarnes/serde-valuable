@@ -1,12 +1,14 @@
 [package]
 name = "serde-valuable"
 version = "0.7.0"
-authors = ["arcnmx"]
+authors = [
+    "arcnmx",
+    "Chris L. Barnes <chrislloydbarnes@gmail.com>",
+]
 edition = "2018"
 
-description = "Serialization value trees"
-documentation = "https://docs.rs/serde-valuable/*/serde_value/"
-repository = "https://github.com/arcnmx/serde-valuable"
+description = "Value enum for serde data model (fork of serde-value)"
+repository = "https://github.com/clbarnes/serde-valuable"
 readme = "README.md"
 keywords = ["serde"]
 license = "MIT"
