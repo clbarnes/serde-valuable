@@ -1,7 +1,11 @@
+use alloc::boxed::Box;
+use alloc::collections::BTreeMap;
+use alloc::string::{String, ToString};
+use alloc::vec;
+use alloc::vec::Vec;
+use core::error::Error;
+use core::fmt;
 use serde::ser;
-use std::collections::BTreeMap;
-use std::error::Error;
-use std::fmt;
 
 use crate::Value;
 

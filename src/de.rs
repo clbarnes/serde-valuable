@@ -1,8 +1,12 @@
+use alloc::borrow::ToOwned;
+use alloc::boxed::Box;
+use alloc::collections::BTreeMap;
+use alloc::string::{String, ToString};
+use alloc::vec::Vec;
+use core::error::Error;
+use core::fmt;
+use core::marker::PhantomData;
 use serde::{de, forward_to_deserialize_any};
-use std::collections::BTreeMap;
-use std::error::Error;
-use std::fmt;
-use std::marker::PhantomData;
 
 use crate::Value;
 
