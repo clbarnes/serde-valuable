@@ -237,6 +237,10 @@ impl<'de> de::Visitor<'de> for ValueVisitor {
         Ok(Value::I64(value))
     }
 
+    fn visit_i128<E>(self, value: i128) -> Result<Value, E> {
+        Ok(Value::I128(value))
+    }
+
     fn visit_u8<E>(self, value: u8) -> Result<Value, E> {
         Ok(Value::U8(value))
     }
@@ -251,6 +255,10 @@ impl<'de> de::Visitor<'de> for ValueVisitor {
 
     fn visit_u64<E>(self, value: u64) -> Result<Value, E> {
         Ok(Value::U64(value))
+    }
+
+    fn visit_u128<E>(self, value: u128) -> Result<Value, E> {
+        Ok(Value::U128(value))
     }
 
     fn visit_f32<E>(self, value: f32) -> Result<Value, E> {
@@ -369,10 +377,12 @@ where
             Value::U16(v) => visitor.visit_u16(v),
             Value::U32(v) => visitor.visit_u32(v),
             Value::U64(v) => visitor.visit_u64(v),
+            Value::U128(v) => visitor.visit_u128(v),
             Value::I8(v) => visitor.visit_i8(v),
             Value::I16(v) => visitor.visit_i16(v),
             Value::I32(v) => visitor.visit_i32(v),
             Value::I64(v) => visitor.visit_i64(v),
+            Value::I128(v) => visitor.visit_i128(v),
             Value::F32(v) => visitor.visit_f32(v),
             Value::F64(v) => visitor.visit_f64(v),
             Value::Char(v) => visitor.visit_char(v),
@@ -456,7 +466,7 @@ where
     }
 
     forward_to_deserialize_any! {
-        bool u8 u16 u32 u64 i8 i16 i32 i64 f32 f64 char str string unit
+        bool u8 u16 u32 u64 u128 i8 i16 i32 i64 i128 f32 f64 char str string unit
         seq bytes byte_buf map unit_struct
         tuple_struct struct tuple ignored_any identifier
     }
@@ -502,7 +512,7 @@ impl<'de> de::Deserializer<'de> for Value {
     }
 
     forward_to_deserialize_any! {
-        bool u8 u16 u32 u64 i8 i16 i32 i64 f32 f64 char str string unit
+        bool u8 u16 u32 u64 u128 i8 i16 i32 i64 i128 f32 f64 char str string unit
         seq bytes byte_buf map unit_struct
         tuple_struct struct tuple ignored_any identifier
     }

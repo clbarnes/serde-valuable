@@ -29,11 +29,13 @@ pub enum Value {
     U16(u16),
     U32(u32),
     U64(u64),
+    U128(u128),
 
     I8(i8),
     I16(i16),
     I32(i32),
     I64(i64),
+    I128(i128),
 
     F32(f32),
     F64(f64),
@@ -61,10 +63,12 @@ impl Hash for Value {
             Value::U16(v) => v.hash(hasher),
             Value::U32(v) => v.hash(hasher),
             Value::U64(v) => v.hash(hasher),
+            Value::U128(v) => v.hash(hasher),
             Value::I8(v) => v.hash(hasher),
             Value::I16(v) => v.hash(hasher),
             Value::I32(v) => v.hash(hasher),
             Value::I64(v) => v.hash(hasher),
+            Value::I128(v) => v.hash(hasher),
             Value::F32(v) => OrderedFloat(v).hash(hasher),
             Value::F64(v) => OrderedFloat(v).hash(hasher),
             Value::Char(v) => v.hash(hasher),
@@ -88,10 +92,12 @@ impl PartialEq for Value {
             (&Value::U16(v0), &Value::U16(v1)) if v0 == v1 => true,
             (&Value::U32(v0), &Value::U32(v1)) if v0 == v1 => true,
             (&Value::U64(v0), &Value::U64(v1)) if v0 == v1 => true,
+            (&Value::U128(v0), &Value::U128(v1)) if v0 == v1 => true,
             (&Value::I8(v0), &Value::I8(v1)) if v0 == v1 => true,
             (&Value::I16(v0), &Value::I16(v1)) if v0 == v1 => true,
             (&Value::I32(v0), &Value::I32(v1)) if v0 == v1 => true,
             (&Value::I64(v0), &Value::I64(v1)) if v0 == v1 => true,
+            (&Value::I128(v0), &Value::I128(v1)) if v0 == v1 => true,
             (&Value::F32(v0), &Value::F32(v1)) if OrderedFloat(v0) == OrderedFloat(v1) => true,
             (&Value::F64(v0), &Value::F64(v1)) if OrderedFloat(v0) == OrderedFloat(v1) => true,
             (&Value::Char(v0), &Value::Char(v1)) if v0 == v1 => true,
@@ -115,10 +121,12 @@ impl Ord for Value {
             (&Value::U16(v0), Value::U16(v1)) => v0.cmp(v1),
             (&Value::U32(v0), Value::U32(v1)) => v0.cmp(v1),
             (&Value::U64(v0), Value::U64(v1)) => v0.cmp(v1),
+            (&Value::U128(v0), Value::U128(v1)) => v0.cmp(v1),
             (&Value::I8(v0), Value::I8(v1)) => v0.cmp(v1),
             (&Value::I16(v0), Value::I16(v1)) => v0.cmp(v1),
             (&Value::I32(v0), Value::I32(v1)) => v0.cmp(v1),
             (&Value::I64(v0), Value::I64(v1)) => v0.cmp(v1),
+            (&Value::I128(v0), Value::I128(v1)) => v0.cmp(v1),
             (&Value::F32(v0), &Value::F32(v1)) => OrderedFloat(v0).cmp(&OrderedFloat(v1)),
             (&Value::F64(v0), &Value::F64(v1)) => OrderedFloat(v0).cmp(&OrderedFloat(v1)),
             (&Value::Char(v0), Value::Char(v1)) => v0.cmp(v1),
@@ -156,6 +164,8 @@ impl Value {
             Value::Seq(..) => 16,
             Value::Map(..) => 17,
             Value::Bytes(..) => 18,
+            Value::U128(..) => 19,
+            Value::I128(..) => 20,
         }
     }
 
@@ -166,10 +176,22 @@ impl Value {
             Value::U16(n) => serde::de::Unexpected::Unsigned(n as u64),
             Value::U32(n) => serde::de::Unexpected::Unsigned(n as u64),
             Value::U64(n) => serde::de::Unexpected::Unsigned(n),
+            Value::U128(n) => n
+                .try_into()
+                .map(serde::de::Unexpected::Unsigned)
+                .unwrap_or_else(|_| {
+                    serde::de::Unexpected::Other("Unexpected u128 value, too large to store")
+                }),
             Value::I8(n) => serde::de::Unexpected::Signed(n as i64),
             Value::I16(n) => serde::de::Unexpected::Signed(n as i64),
             Value::I32(n) => serde::de::Unexpected::Signed(n as i64),
             Value::I64(n) => serde::de::Unexpected::Signed(n),
+            Value::I128(n) => n
+                .try_into()
+                .map(serde::de::Unexpected::Signed)
+                .unwrap_or_else(|_| {
+                    serde::de::Unexpected::Other("Unexpected i128 value, too large to store")
+                }),
             Value::F32(n) => serde::de::Unexpected::Float(n as f64),
             Value::F64(n) => serde::de::Unexpected::Float(n),
             Value::Char(c) => serde::de::Unexpected::Char(c),

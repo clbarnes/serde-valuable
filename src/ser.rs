@@ -41,10 +41,12 @@ impl ser::Serialize for Value {
             Value::U16(v) => s.serialize_u16(v),
             Value::U32(v) => s.serialize_u32(v),
             Value::U64(v) => s.serialize_u64(v),
+            Value::U128(v) => s.serialize_u128(v),
             Value::I8(v) => s.serialize_i8(v),
             Value::I16(v) => s.serialize_i16(v),
             Value::I32(v) => s.serialize_i32(v),
             Value::I64(v) => s.serialize_i64(v),
+            Value::I128(v) => s.serialize_i128(v),
             Value::F32(v) => s.serialize_f32(v),
             Value::F64(v) => s.serialize_f64(v),
             Value::Char(v) => s.serialize_char(v),
@@ -97,6 +99,10 @@ impl ser::Serializer for Serializer {
         Ok(Value::I64(v))
     }
 
+    fn serialize_i128(self, v: i128) -> Result<Self::Ok, Self::Error> {
+        Ok(Value::I128(v))
+    }
+
     fn serialize_u8(self, v: u8) -> Result<Self::Ok, Self::Error> {
         Ok(Value::U8(v))
     }
@@ -111,6 +117,10 @@ impl ser::Serializer for Serializer {
 
     fn serialize_u64(self, v: u64) -> Result<Self::Ok, Self::Error> {
         Ok(Value::U64(v))
+    }
+
+    fn serialize_u128(self, v: u128) -> Result<Self::Ok, Self::Error> {
+        Ok(Value::U128(v))
     }
 
     fn serialize_f32(self, v: f32) -> Result<Self::Ok, Self::Error> {
