@@ -17,4 +17,4 @@ release level:
     changelog release {{level}}
     git add CHANGELOG.md
     git commit -m "Bump changelog to v$(changelog version latest)"
-    cargo release {{level}} --execute --push-remote clbarnes/master
+    cargo release {{level}} --execute --push-remote clbarnes
