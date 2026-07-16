@@ -14,6 +14,7 @@
 - Upgrade ordered-float dependency to v5
 - Set edition to 2024
 - Exposed `crate::Map`, the map type used internally
+- Move from travis CI to github actions
 
 ### Added
 
