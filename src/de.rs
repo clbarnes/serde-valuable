@@ -1,6 +1,5 @@
 use alloc::borrow::ToOwned;
 use alloc::boxed::Box;
-use alloc::collections::BTreeMap;
 use alloc::fmt;
 use alloc::string::String;
 use alloc::string::ToString;
@@ -301,7 +300,7 @@ impl<'de> de::Visitor<'de> for ValueVisitor {
     }
 
     fn visit_map<V: de::MapAccess<'de>>(self, mut visitor: V) -> Result<Value, V::Error> {
-        let mut values = BTreeMap::new();
+        let mut values = crate::Map::default();
         while let Some((key, value)) = visitor.next_entry()? {
             values.insert(key, value);
         }
@@ -317,7 +316,7 @@ impl<'de> de::Visitor<'de> for ValueVisitor {
     }
 
     fn visit_enum<A: de::EnumAccess<'de>>(self, data: A) -> Result<Self::Value, A::Error> {
-        let mut map = BTreeMap::new();
+        let mut map = crate::Map::default();
         let (key, value) = data.variant()?;
         let value = value.newtype_variant().unwrap_or(Value::Unit);
         map.insert(key, value);

@@ -13,6 +13,10 @@
 [license-badge]: https://img.shields.io/badge/license-MIT-lightgray.svg?style=flat-square
 [license]: https://github.com/clbarnes/serde-valuable/blob/master/COPYING
 
+## Alternatives
+
+- [serde-content](https://crates.io/crates/serde-content) sticks closer to the internal model used by serde
+
 ## PRs from original repo
 
 - [x] Support for nostd: <https://github.com/arcnmx/serde-value/pull/43>
@@ -21,3 +25,7 @@
   - [x] Upgrade ordered-float to version 4 <https://github.com/arcnmx/serde-value/pull/42>
 - [x] Support visiting enums <https://github.com/arcnmx/serde-value/pull/38>
 - [ ] Added support for feature = preserve_order <https://github.com/arcnmx/serde-value/pull/21>
+
+## LLM usage statement
+
+Usage of LLMs in the development of this package is restricted to writing small macros and repetitive, minor tasks which are thoroughly reviewed.

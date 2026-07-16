@@ -14,8 +14,12 @@ use alloc::vec::Vec;
 pub use de::*;
 pub use ser::*;
 
+mod convert;
 mod de;
 mod ser;
+
+/// Map type used internally.
+pub type Map<K = Value, V = Value> = BTreeMap<K, V>;
 
 #[derive(Clone, Debug)]
 pub enum Value {
@@ -41,7 +45,7 @@ pub enum Value {
     Option(Option<Box<Value>>),
     Newtype(Box<Value>),
     Seq(Vec<Value>),
-    Map(BTreeMap<Value, Value>),
+    Map(Map<Value, Value>),
     Bytes(Vec<u8>),
 }
 
@@ -358,7 +362,7 @@ mod tests {
                     "ADDED" => Event::Added(<_>::deserialize(object_deserializer)?),
                     "ERROR" => Event::Error(<_>::deserialize(object_deserializer)?),
                     kind => {
-                        return Err(serde::de::Error::unknown_variant(kind, &["ADDED", "ERROR"]))
+                        return Err(serde::de::Error::unknown_variant(kind, &["ADDED", "ERROR"]));
                     }
                 })
             }

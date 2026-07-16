@@ -1,5 +1,4 @@
 use alloc::boxed::Box;
-use alloc::collections::BTreeMap;
 use alloc::string::{String, ToString};
 use alloc::vec;
 use alloc::vec::Vec;
@@ -188,7 +187,7 @@ impl ser::Serializer for Serializer {
         T: ser::Serialize + ?Sized,
     {
         value.serialize(Serializer).map(|v| {
-            let mut map = BTreeMap::new();
+            let mut map = crate::Map::default();
             map.insert(Value::String(variant.to_string()), v);
             Value::Map(map)
         })
@@ -225,7 +224,7 @@ impl ser::Serializer for Serializer {
 
     fn serialize_map(self, _len: Option<usize>) -> Result<Self::SerializeMap, Self::Error> {
         Ok(SerializeMap {
-            map: BTreeMap::new(),
+            map: Default::default(),
             key: None,
         })
     }
@@ -235,7 +234,7 @@ impl ser::Serializer for Serializer {
         _name: &'static str,
         _len: usize,
     ) -> Result<Self::SerializeStruct, Self::Error> {
-        Ok(SerializeStruct(BTreeMap::new()))
+        Ok(SerializeStruct(Default::default()))
     }
 
     fn serialize_struct_variant(
@@ -247,7 +246,7 @@ impl ser::Serializer for Serializer {
     ) -> Result<Self::SerializeStructVariant, Self::Error> {
         Ok(SerializeStructVariant(
             Value::String(variant.to_string()),
-            BTreeMap::new(),
+            Default::default(),
         ))
     }
 }
@@ -328,14 +327,14 @@ impl ser::SerializeTupleVariant for SerializeTupleVariant {
     }
 
     fn end(self) -> Result<Self::Ok, Self::Error> {
-        let mut map = BTreeMap::new();
+        let mut map = crate::Map::default();
         map.insert(self.0, Value::Seq(self.1));
         Ok(Value::Map(map))
     }
 }
 
 struct SerializeMap {
-    map: BTreeMap<Value, Value>,
+    map: crate::Map<Value, Value>,
     key: Option<Value>,
 }
 
@@ -366,7 +365,7 @@ impl ser::SerializeMap for SerializeMap {
     }
 }
 
-struct SerializeStruct(BTreeMap<Value, Value>);
+struct SerializeStruct(crate::Map<Value, Value>);
 
 impl ser::SerializeStruct for SerializeStruct {
     type Ok = Value;
@@ -387,7 +386,7 @@ impl ser::SerializeStruct for SerializeStruct {
     }
 }
 
-struct SerializeStructVariant(Value, BTreeMap<Value, Value>);
+struct SerializeStructVariant(Value, crate::Map<Value, Value>);
 
 impl ser::SerializeStructVariant for SerializeStructVariant {
     type Ok = Value;
@@ -404,7 +403,7 @@ impl ser::SerializeStructVariant for SerializeStructVariant {
     }
 
     fn end(self) -> Result<Self::Ok, Self::Error> {
-        let mut map = BTreeMap::new();
+        let mut map = crate::Map::default();
         map.insert(self.0, Value::Map(self.1));
         Ok(Value::Map(map))
     }
