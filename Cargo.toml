@@ -1,12 +1,12 @@
 [package]
-name = "serde-value"
+name = "serde-valuable"
 version = "0.7.0"
 authors = ["arcnmx"]
 edition = "2018"
 
 description = "Serialization value trees"
-documentation = "https://docs.rs/serde-value/*/serde_value/"
-repository = "https://github.com/arcnmx/serde-value"
+documentation = "https://docs.rs/serde-valuable/*/serde_value/"
+repository = "https://github.com/arcnmx/serde-valuable"
 readme = "README.md"
 keywords = ["serde"]
 license = "MIT"
