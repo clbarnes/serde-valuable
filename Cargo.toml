@@ -1,6 +1,6 @@
 [package]
 name = "serde-valuable"
-version = "0.8.0"
+version = "0.8.1"
 authors = [
     "arcnmx",
     "Chris L. Barnes <chrislloydbarnes@gmail.com>",
