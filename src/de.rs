@@ -313,7 +313,7 @@ pub struct ValueDeserializer<E> {
 impl<E> ValueDeserializer<E> {
     pub fn new(value: Value) -> Self {
         ValueDeserializer {
-            value: value,
+            value,
             error: Default::default(),
         }
     }
@@ -395,8 +395,8 @@ impl<'de, E> de::Deserializer<'de> for ValueDeserializer<E> where E: de::Error {
         };
 
         let d = EnumDeserializer {
-            variant: variant,
-            value: value,
+            variant,
+            value,
             error: Default::default(),
         };
         visitor.visit_enum(d)
