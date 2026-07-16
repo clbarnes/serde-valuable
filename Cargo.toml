@@ -10,7 +10,7 @@ edition = "2024"
 description = "Value enum for serde data model (fork of serde-value)"
 repository = "https://github.com/clbarnes/serde-valuable"
 readme = "README.md"
-keywords = ["serde"]
+keywords = ["serde", "serde-value"]
 license = "MIT"
 rust-version = "1.85"
 

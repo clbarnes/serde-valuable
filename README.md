@@ -15,7 +15,9 @@
 
 ## Alternatives
 
-- [serde-content](https://crates.io/crates/serde-content) sticks closer to the internal model used by serde
+- [serde-content](https://crates.io/crates/serde-content)-
+  - sticks closer to the internal model used by serde
+  - allows Content enum to borrow data for zero-copy deserialisation (internal `Cow`s)
 
 ## PRs from original repo
 
