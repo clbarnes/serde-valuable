@@ -12,6 +12,7 @@ repository = "https://github.com/clbarnes/serde-valuable"
 readme = "README.md"
 keywords = ["serde"]
 license = "MIT"
+rust-version = "1.85"
 
 [dependencies]
 serde = { version = "1", features = ["alloc"], default-features = false }
