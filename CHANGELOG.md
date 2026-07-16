@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.8.0 - 2026-07-16
+
 ### Removed
 
 - BREAKING: Support for rust < 1.85
@@ -24,5 +26,3 @@
 - `as_{type}(_mut)` methods, like `serde_json`
 
 ## 0.7.0 - 2020-06-17
-
-See [serde-value](https://crates.io/crates/serde-value).
