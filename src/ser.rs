@@ -64,7 +64,7 @@ impl ser::Serialize for Value {
     }
 }
 
-/// Convert a serializable value into a [crate::Value].
+/// Convert a serializable value into a [Value].
 pub fn to_value<T: ser::Serialize>(value: T) -> Result<Value, SerializerError> {
     value.serialize(Serializer)
 }

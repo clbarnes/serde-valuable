@@ -24,7 +24,7 @@ pub type Map<K = Value, V = Value> = BTreeMap<K, V>;
 
 /// A serde-compatible value tree that can capture the result of serializing any
 /// [`Serialize`](serde::Serialize) type and be deserialized into any
-/// [`Deserialize`](serde::Deserialize) type.
+/// [`Deserialize`] type.
 #[derive(Clone, Debug)]
 pub enum Value {
     /// A boolean.

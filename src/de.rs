@@ -10,6 +10,11 @@ use serde::{de, de::VariantAccess, forward_to_deserialize_any};
 
 use crate::Value;
 
+/// Convert a [Value] into a concrete type implementing [serde::Deserialize].
+pub fn from_value<'de, T: de::Deserialize<'de>>(value: Value) -> Result<T, DeserializerError> {
+    T::deserialize(value)
+}
+
 /// Duplicate serde's internal `Unexpected` type, which is used to represent unexpected values during deserialization.
 ///
 /// Note that, like the `serde` type, unexpected integers are represented in 64 bits; unexpected integers which do not fit into this width will be represented as `Unexpected::Other`.
