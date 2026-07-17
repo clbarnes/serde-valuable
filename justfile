@@ -21,3 +21,6 @@ release level:
 
 doc:
     cargo doc --all-features --no-deps --open
+
+semver:
+    cargo semver-checks

@@ -15,6 +15,8 @@ use alloc::vec::Vec;
 pub use de::*;
 pub use ser::*;
 
+pub use convert::CastError;
+
 mod convert;
 mod de;
 mod ser;
