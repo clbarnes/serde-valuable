@@ -21,6 +21,8 @@
 - [serde-val](https://crates.io/crates/serde-val)
   - another fork of serde-value, merging the no_std PR
 
+Not to be confused with [valuable_serde](https://crates.io/crates/valuable-serde), which integrates object-safe introspection from [valuable](https://crates.io/crates/valuable) into the serde ecosystem.
+
 ## PRs from original repo
 
 - [x] Support for nostd: <https://github.com/arcnmx/serde-value/pull/43>
