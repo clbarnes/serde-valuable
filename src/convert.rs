@@ -484,7 +484,7 @@ impl TryFrom<Value> for f32 {
     type Error = CastError;
 
     fn try_from(value: Value) -> Result<Self, Self::Error> {
-        value_to_f32(&value)
+        TryFrom::try_from(&value)
     }
 }
 
@@ -500,7 +500,7 @@ impl TryFrom<Value> for f64 {
     type Error = CastError;
 
     fn try_from(value: Value) -> Result<Self, Self::Error> {
-        value_to_f64(&value)
+        TryFrom::try_from(&value)
     }
 }
 
