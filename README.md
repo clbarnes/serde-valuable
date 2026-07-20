@@ -23,7 +23,9 @@
 
 Not to be confused with [valuable_serde](https://crates.io/crates/valuable-serde), which integrates object-safe introspection from [valuable](https://crates.io/crates/valuable) into the serde ecosystem.
 
-## PRs from original repo
+### Resolved from original repo
+
+#### Merged or superceded PRs
 
 - [x] Support for nostd: <https://github.com/arcnmx/serde-value/pull/43>
 - Bumped ordered-float to v5, superceding:
@@ -31,6 +33,10 @@ Not to be confused with [valuable_serde](https://crates.io/crates/valuable-serde
   - [x] Upgrade ordered-float to version 4 <https://github.com/arcnmx/serde-value/pull/42>
 - [x] Support visiting enums <https://github.com/arcnmx/serde-value/pull/38>
 - [ ] Added support for feature = preserve_order <https://github.com/arcnmx/serde-value/pull/21>
+
+#### Resolved issues
+
+- [x] Numeric conversion: <https://github.com/arcnmx/serde-value/issues/39>
 
 ## LLM usage statement
 

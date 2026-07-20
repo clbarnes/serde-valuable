@@ -266,6 +266,54 @@ impl Value {
     pub fn is_number(&self) -> bool {
         self.is_integer() || self.is_float()
     }
+
+    /// Consume and return the inner value if this is a [`Value::Seq`], otherwise [`None`].
+    pub fn into_seq(self) -> Option<Vec<Value>> {
+        match self {
+            Value::Seq(v) => Some(v),
+            _ => None,
+        }
+    }
+
+    /// Consume and return the inner value if this is a [`Value::Map`], otherwise [`None`].
+    pub fn into_map(self) -> Option<crate::Map<Value, Value>> {
+        match self {
+            Value::Map(v) => Some(v),
+            _ => None,
+        }
+    }
+
+    /// Consume and return the inner value if this is a [`Value::Option`], otherwise [`None`].
+    pub fn into_option(self) -> Option<Option<Value>> {
+        match self {
+            Value::Option(v) => Some(v.map(|b| *b)),
+            _ => None,
+        }
+    }
+
+    /// Consume and return the inner value if this is a [`Value::Newtype`], otherwise [`None`].
+    pub fn into_newtype(self) -> Option<Value> {
+        match self {
+            Value::Newtype(v) => Some(*v),
+            _ => None,
+        }
+    }
+
+    /// Consume and return the inner value if this is a [`Value::Bytes`], otherwise [`None`].
+    pub fn into_bytes(self) -> Option<Vec<u8>> {
+        match self {
+            Value::Bytes(v) => Some(v),
+            _ => None,
+        }
+    }
+
+    /// Consume and return the inner value if this is a [`Value::String`], otherwise [`None`].
+    pub fn into_string(self) -> Option<String> {
+        match self {
+            Value::String(v) => Some(v),
+            _ => None,
+        }
+    }
 }
 
 /// Error returned when converting a [`Value`] into a numeric type via [`TryFrom`].

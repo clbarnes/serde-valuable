@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Added
+
+- Numeric methods, checking for number types and `TryFrom<&Value>`
+- Unwrapping methods which consume the `Value` (e.g. `into_seq(self) -> Option<Vec<Value>>`)
+
 ## 0.8.1 - 2026-07-16
 
 ### Added
@@ -12,7 +17,7 @@
 
 ### Removed
 
-- BREAKING: Support for rust < 1.85
+- BREAKING: Drop support for rust < 1.85
 
 ### Changed
 
